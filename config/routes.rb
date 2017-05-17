@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-	get "v1/api/image" => "image#index"
+	post "v1/api/image" => "image#post"
 end
