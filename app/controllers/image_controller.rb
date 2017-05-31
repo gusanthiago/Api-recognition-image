@@ -1,6 +1,6 @@
 class ImageController < ApplicationController
 
-	def post
+	def create
 		response = {description: "", name: "", urlOrigin: "", pathFile: "", numberBeer: 0}
 		response[:urlOrigin] = request[:urlImage].to_s.delete(' ')
 		response[:pathFile] = request_save(request[:urlImage])
@@ -11,21 +11,21 @@ class ImageController < ApplicationController
 		require 'open-uri'
 		size = image_data.length	
 		extension = image_data[size-4...size]
-		folder = 'public/images_request/'
-		folderSave = folder + rand_hash() + extension
-		while File.exists?(folderSave) == true do
-			folderSave = folder + rand_hash() + extension
+		folderImage = '/images_request/' + rand_hash() + extension
+		folderSave = 'public/' + folderImage
+		loop do
+			folderImage = '/images_request/' + rand_hash() + extension	
+			break if File.exists?(folderSave) != true
 		end
-		
 		begin
 			open(folderSave, 'wb') do |file|
 			  file << open(image_data).read
 			end
 		rescue OpenURI::HTTPError => ex
-			folderSave = ""
-			puts ex
+			folderImage = ""
+			puts "ERROR REQUEST "+ex
 		end
-		folderSave
+		folderImage
 	end
 
 	def rand_hash()
