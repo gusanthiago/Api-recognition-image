@@ -11,11 +11,11 @@ class ImageController < ApplicationController
 		require 'open-uri'
 		size = image_data.length	
 		extension = image_data[size-4...size]
-		folderImage = '/images_request/' + rand_hash() + extension
+		folderImage = 'images_request/' + rand_hash() + extension
 		folderSave = 'public/' + folderImage
 		loop do
-			folderImage = '/images_request/' + rand_hash() + extension	
 			break if File.exists?(folderSave) != true
+			folderImage = '/images_request/' + rand_hash() + extension	
 		end
 		begin
 			open(folderSave, 'wb') do |file|
