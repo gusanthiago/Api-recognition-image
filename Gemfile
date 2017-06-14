@@ -42,3 +42,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Gem for responde in format
 gem 'responders'
+# Heroku
+gem 'rails_12factor', group: :production

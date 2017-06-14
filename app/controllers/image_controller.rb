@@ -1,4 +1,4 @@
-class ImageController < ApplicationController
+ class ImageController < ApplicationController
 
 	def create
 		response = {description: "", name: "", urlOrigin: "", pathFile: "", numberBeer: 0}
