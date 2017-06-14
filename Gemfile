@@ -14,7 +14,6 @@ gem 'rails_12factor', group: :production
 
 
 group :development, :test do
-	gem 'sqlite3'	
   gem 'byebug', platform: :mri
 end
 
