@@ -21,6 +21,6 @@
 .byebug_history
 
 # Ignore in project 
-Gemfile.lock
+# Gemfile.lock
 public/images_request/*.jpg
 public/images_request/*.png
