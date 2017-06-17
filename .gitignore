@@ -22,5 +22,6 @@
 
 # Ignore in project 
 # Gemfile.lock
+!public/images_request/
 public/images_request/*.jpg
 public/images_request/*.png
