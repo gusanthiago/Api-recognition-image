@@ -1,4 +1,6 @@
- class ImageController < ApplicationController
+require 'open-uri'
+
+class ImageController < ApplicationController
 
 	def create
 		response = {description: "", name: "", urlOrigin: "", pathFile: "", numberBeer: 0}
@@ -8,7 +10,6 @@
 	end
 
 	def request_save(image_data)
-		require 'open-uri'
 		size = image_data.length	
 		extension = image_data[size-4...size]
 		folderImage = 'images_request/' + rand_hash() + extension
