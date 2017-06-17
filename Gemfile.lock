@@ -63,6 +63,7 @@ GEM
     nio4r (2.0.0)
     nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
+    pg (0.21.0)
     puma (3.8.2)
     rack (2.0.3)
     rack-test (0.6.3)
@@ -129,6 +130,7 @@ PLATFORMS
 DEPENDENCIES
   byebug
   listen (~> 3.0.5)
+  pg
   puma (~> 3.0)
   rails (~> 5.0.2)
   rails_12factor
@@ -142,4 +144,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.15.0
+   1.15.1
