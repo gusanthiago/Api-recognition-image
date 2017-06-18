@@ -1,12 +1,24 @@
+require 'google/cloud/vision'
 require 'open-uri'
 
 class ImageController < ApplicationController
 
 	def create
-		response = {description: "", name: "", urlOrigin: "", pathFile: "", numberBeer: 0}
-		response[:urlOrigin] = request[:urlImage].to_s.delete(' ')
-		response[:pathFile] = request_save(request[:urlImage])
-		render :json => response 
+		response = {
+			success: 1,
+			description: "", 
+			name: "",
+			urlOrigin: request[:urlImage].to_s.delete(' '), 
+			pathFile: "",
+			vision: []
+		}
+		if response[:urlOrigin].to_s.empty?
+			response[:success] = 0
+			render :json => response
+		else
+			response[:pathFile] = request_save(response[:urlOrigin])
+			render :json => filterProperties(response)
+		end 
 	end
 
 	def request_save(image_data)
@@ -32,4 +44,16 @@ class ImageController < ApplicationController
 	def rand_hash()
 		Random.new_seed.to_s + (0...8).map { (65 + rand(26)).chr }.join
 	end
+
+	def filterProperties(response)
+		cloud_vision = {
+			web: [],
+			text: [],
+			labels: []
+		}
+		
+		response[:vision] = cloud_vision
+		response
+	end
+
 end
