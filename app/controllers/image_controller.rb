@@ -6,10 +6,10 @@ class ImageController < ApplicationController
 	def create
 		response = {
 			success: 1,
-			description: "", 
-			name: "",
+			description: '', 
+			name: '',
 			urlOrigin: request[:urlImage].to_s.delete(' '), 
-			pathFile: "",
+			pathFile: '',
 			vision: []
 		}
 		if response[:urlOrigin].to_s.empty?
@@ -35,8 +35,8 @@ class ImageController < ApplicationController
 			  file << open(image_data).read
 			end
 		rescue OpenURI::HTTPError => ex
-			folderImage = ""
-			puts "ERROR REQUEST "+ex
+			folderImage = ''
+			puts 'ERROR REQUEST '+ex
 		end
 		folderImage
 	end
@@ -48,9 +48,19 @@ class ImageController < ApplicationController
 	def filterProperties(response)
 		cloud_vision = {
 			web: [],
-			text: [],
-			labels: []
+			labels: [],
+			text: ""
 		}
+		vision = Google::Cloud::Vision.new project: ENV.fetch('GOOGLE_CLOUD_PROJECT')
+		image = vision.image "public/" + response[:pathFile]
+		
+		image.web.entities.each do |entity|
+			cloud_vision[:web] << {description: entity.description, score: entity.score}
+		end
+		image.labels.each do |label|
+			cloud_vision[:labels] << {description: label.description, score: label.score}
+		end
+		cloud_vision[:text] = image.document.text
 		
 		response[:vision] = cloud_vision
 		response
