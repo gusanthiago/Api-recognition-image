@@ -6,8 +6,6 @@ class ImageController < ApplicationController
 	def create
 		response = {
 			success: 1,
-			description: '', 
-			name: '',
 			urlOrigin: request[:urlImage].to_s.delete(' '), 
 			pathFile: '',
 			vision: []
