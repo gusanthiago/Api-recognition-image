@@ -47,7 +47,7 @@ class ImageController < ApplicationController
 		cloud_vision = {
 			web: [],
 			labels: []
-			# text: "" TODO text in cloud vision
+			# text: "" # TODO text in cloud vision
 		}
 		vision = Google::Cloud::Vision.new project: ENV.fetch('GOOGLE_CLOUD_PROJECT')
 		image = vision.image "public/" + response[:pathFile]
@@ -58,7 +58,7 @@ class ImageController < ApplicationController
 		image.labels.each do |label|
 			cloud_vision[:labels] << {description: label.description, score: label.score}
 		end
-		# cloud_vision[:text] = image.document.text
+		# cloud_vision[:text] = image.document.text # TODO text in cloud vision
 		
 		response[:vision] = cloud_vision
 		response
